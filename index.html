@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<title>Detroit Drift 313 — Hajwala in the Motor City</title>
+<meta name="description" content="Hajwala-style drifting set in Detroit Michigan. 2026 Big-Three cars, Detroit rap radio, Ambassador Bridge, 8 Mile, Woodward."/>
+<link rel="stylesheet" href="style.css"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏎️%3C/text%3E%3C/svg%3E"/>
+<script type="importmap">{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/" } }</script>
+</head>
+<body>
+<canvas id="game-canvas"></canvas>
+
+<div id="loader">
+  <div class="badge">313 • MOTOR CITY • 2026</div>
+  <h1>DETROIT <span>DRIFT</span> <em>313</em></h1>
+  <div class="loadbar"><i></i></div>
+  <p>Loading Woodward Ave… warming up 2026 V8s & EVs…</p>
+</div>
+
+<!-- MENU -->
+<div id="menu" class="screen">
+  <div class="card">
+    <div class="hero-top">
+      <div class="pill">HAJWALA × DETROIT — BETTER</div>
+      <div class="pill blue">2026 MODELS • DETROIT RAP RADIO</div>
+    </div>
+    <h1 class="title">DETROIT <span class="r">DRIFT</span> <span class="b">313</span></h1>
+    <p class="sub">Hajwala drifting, Motor-City style. Slide <b>Woodward Ave, 8 Mile, Downtown & the Ambassador Bridge</b> in 2026 Big-Three monsters — Mustang GTD, Charger Daytona EV, Corvette ZR1X, Escalade IQ, Hummer EV, Bronco Raptor. Bank drift combos, dodge traffic, outrun DPD, all to an original <b>Detroit-rap-style radio</b> (Eminem • Tee Grizzley • 42 Dugg • Big Sean • Sada Baby inspired beats).</p>
+
+    <div class="grid2">
+      <div>
+        <h3 class="label">1 — PICK YOUR 2026 RIDE</h3>
+        <div id="car-grid" class="car-grid"></div>
+        <div id="car-desc" style="margin-top:8px;font-size:13px;opacity:.8"></div>
+        <h3 class="label">PAINT</h3>
+        <div id="color-row" class="colors"></div>
+        <h3 class="label">2 — ZONE</h3>
+        <div id="zone-grid" class="opt-row"></div>
+        <div id="zone-desc" style="margin-top:8px;font-size:13px;opacity:.7"></div>
+        <h3 class="label">3 — MODE</h3>
+        <div id="mode-grid" class="opt-row"></div>
+        <h3 class="label">4 — CUSTOMIZE (SAVED PER CAR)</h3>
+        <div id="custom-ui"></div>
+      </div>
+      <div>
+        <h3 class="label">313 RADIO — DETROIT PLAYLIST (ORIGINAL IN-GAME BEATS)</h3>
+        <div class="playlist">
+          <div id="plist"></div>
+          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+            <button id="spotify-btn" class="opt">🟢 Real Detroit playlist — Spotify</button>
+            <button id="yt-btn" class="opt">🔴 Real Detroit playlist — YouTube</button>
+          </div>
+          <div style="font-size:11px;opacity:.55;margin-top:8px;line-height:1.5">In-game tracks are original beats inspired by Eminem, Big Sean, Danny Brown, Tee Grizzley, 42 Dugg, Sada Baby, Kash Doll, Royce da 5'9, Dej Loaf & Icewear Vezzo. No copyrighted audio is shipped. Tap above for the real songs.</div>
+        </div>
+        <div class="controls-help">
+          <kbd>W A S D</kbd> / <kbd>← ↑ ↓ →</kbd> drive &nbsp; <kbd>SPACE</kbd> handbrake (hajwala!)<br/>
+          <kbd>C</kbd> camera &nbsp; <kbd>R</kbd> reset &nbsp; <kbd>M</kbd>/<kbd>N</kbd> radio &nbsp; <kbd>P</kbd> pause<br/>
+          Hold handbrake + steer at speed to go sideways. Straighten out to BANK your combo.
+        </div>
+      </div>
+    </div>
+
+    <div class="bigbtn">
+      <button id="start-btn" class="cta">🔥 START DRIFTING</button>
+      <button id="preview-btn" class="ghost">👁 PREVIEW RIDE</button>
+      <button id="snow-btn" class="ghost">❄ Detroit snow</button>
+      <button id="night-btn" class="ghost">🌙 Night cruise</button>
+    </div>
+    <div style="margin-top:10px;font-size:12px;opacity:.6">Best score on this device: <b id="menu-best">0</b> • Free • No login • Mobile supported</div>
+  </div>
+</div>
+
+<!-- HUD -->
+<div id="hud" class="hidden">
+  <div class="top-left">
+    <div id="score-box">
+      <div class="lbl" id="mode-tag">FREE HAJWALA</div>
+      <div id="total-score">0</div>
+      <div style="display:none"><span id="combo"></span></div>
+      <div id="wanted"></div>
+    </div>
+    <div id="radio-hud">
+      <div class="row"><button id="rb-prev">⏮</button><button id="rb-play">⏸</button><button id="rb-next">⏭</button>
+        <div><div id="rh-t" style="font-weight:900">♪ 313 RADIO</div><div id="ra" style="opacity:.6;font-size:11px"></div></div></div>
+      <div id="viz"></div>
+      <div class="row" style="margin-top:6px"><span style="opacity:.6">vol</span><input id="vol" type="range" min="0" max="100" value="50" style="flex:1"/></div>
+    </div>
+  </div>
+  <div class="top-right">
+    <div id="speed-box"><div id="speed">0<small> MPH</small></div></div>
+    <div id="drift-tag" style="display:none">HAJWALA! 🔥</div>
+    <canvas id="minimap" width="170" height="170"></canvas>
+  </div>
+  <div id="timer">313 • DETROIT</div>
+  <div id="msg"></div>
+  <div class="bottom-bar">
+    <button id="pause-btn">⏸</button>
+    <button id="cam-btn">📷</button>
+    <button id="reset-btn">↺</button>
+    <button id="quality-btn" title="Toggle graphics quality">✨</button>
+    <button id="mute-btn">🔊</button>
+  </div>
+</div>
+
+<div id="touch">
+  <div class="grp"><button id="tLeft">◀</button><button id="tRight">▶</button></div>
+  <div class="grp"><button id="tHb">HB</button><button id="tBrake">BRAKE</button><button id="tGas">GAS</button></div>
+</div>
+
+<!-- SHOWROOM PREVIEW BAR -->
+<div id="preview-bar" class="hidden">
+  <span id="preview-name">2026 Ford Mustang GTD</span>
+  <button id="preview-back">← GARAGE</button>
+  <button id="preview-go">🔥 DRIFT THIS RIDE</button>
+</div>
+<div id="pause" class="screen hidden">
+  <div class="card" id="pause-menu" style="max-width:520px">
+    <h2>PAUSED</h2>
+    <p class="sub">Grab a Coney dog. Your combo is safe… for now.</p>
+    <div id="final-stats"><div><b id="p-score">0</b><span>SCORE</span></div><div><b id="p-best">0</b><span>BEST</span></div><div><b id="p-time">0s</b><span>TIME</span></div></div>
+    <div class="bigbtn" style="justify-content:center"><button id="resume-btn" class="cta">RESUME</button><button id="quit-btn" class="ghost">QUIT</button></div>
+  </div>
+</div>
+
+<!-- OVER -->
+<div id="over" class="screen hidden">
+  <div class="card" id="over-menu" style="max-width:560px">
+    <div class="pill" style="display:inline-block">313 FINISH</div>
+    <h2 id="over-title">SESSION OVER</h2>
+    <div id="over-stats"><div><b id="o-score">0</b><span>SCORE</span></div><div><b id="o-best">0</b><span>BEST</span></div><div><b id="o-drift">0°</b><span>MAX ANGLE</span></div></div>
+    <p class="sub">Real Detroit playlist: Eminem, Big Sean, Tee Grizzley, 42 Dugg, Sada Baby, Icewear Vezzo, Kash Doll, Dej Loaf, Royce da 5'9, Danny Brown — <a class="ext" href="https://open.spotify.com/search/Detroit%20rap" target="_blank">open Spotify</a> • <a class="ext" href="https://www.youtube.com/results?search_query=detroit+rap+playlist" target="_blank">open YouTube</a></p>
+    <div class="bigbtn" style="justify-content:center"><button id="again-btn" class="cta">DRIFT AGAIN</button><button id="menu-btn" class="ghost">GARAGE</button></div>
+  </div>
+</div>
+
+<script type="module">
+import { boot } from './game.js';
+document.getElementById('menu-best').textContent=(+(localStorage.getItem('det313best')||0)).toLocaleString();
+boot();
+setInterval(()=>{
+  const t=document.getElementById('total-score'); if(!t)return;
+  document.getElementById('p-score').textContent=t.textContent;
+  document.getElementById('p-best').textContent=(+(localStorage.getItem('det313best')||0)).toLocaleString();
+},1000);
+</script>
+</body>
+</html>

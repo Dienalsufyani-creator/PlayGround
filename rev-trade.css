@@ -1,0 +1,38 @@
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0b0e17;--panel:#141a2b;--line:rgba(255,255,255,.12);--acc:#2ecc71;--acc2:#00c2ff;--warn:#ff5a5a;--gold:#ffb300}
+body{background:var(--bg);color:#eef2ff;font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+.top{position:sticky;top:0;z-index:20;display:flex;gap:14px;align-items:center;justify-content:space-between;padding:12px 18px;background:rgba(11,14,23,.94);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.logo{font-weight:900;font-size:19px;color:#fff;text-decoration:none}.logo span{color:var(--acc)}
+.logo em{font-style:normal;background:var(--gold);color:#000;font-size:11px;padding:2px 8px;border-radius:99px;margin-left:6px}
+.live-row{display:flex;gap:8px;align-items:center;font-size:13px;color:#bcd}
+.dot{width:10px;height:10px;border-radius:99px;background:#666}.dot.on{background:var(--acc);box-shadow:0 0 8px var(--acc)}.dot.off{background:var(--warn)}
+.tick{font-weight:800;color:#fff;background:#1a2340;border:1px solid var(--line);padding:5px 10px;border-radius:99px}
+.top-actions{display:flex;gap:8px}
+.ghost-btn{background:transparent;border:1px solid var(--line);color:#fff;padding:9px 14px;border-radius:10px;cursor:pointer;text-decoration:none;font-size:13px}
+.ghost-btn:hover{border-color:#fff}
+.risk-banner{margin:14px auto 0;max-width:1180px;background:#2a140f;border:1px solid #ff8a5a;color:#ffd9c4;padding:12px 16px;border-radius:12px;font-size:13.5px;line-height:1.6}
+.mode-paper{display:inline-block;margin-left:10px;background:var(--acc);color:#04140a;font-weight:900;font-size:12px;padding:3px 10px;border-radius:99px}
+.layout{max-width:1180px;margin:14px auto;padding:0 18px 30px;display:grid;gap:14px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+.panel h2{font-size:17px;margin-bottom:6px}.panel h3{font-size:14px;margin:14px 0 8px}
+.muted{opacity:.65;font-size:12.5px;font-weight:400}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0}
+.grid2 label{font-size:12px;opacity:.95;display:flex;flex-direction:column;gap:6px;background:#0e1424;border:1px solid var(--line);border-radius:10px;padding:9px 10px}
+.grid2 select,.grid2 input{background:#0a0f1e;border:1px solid var(--line);color:#fff;border-radius:8px;padding:8px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+.cta{background:var(--acc);border:none;color:#04140a;font-weight:900;padding:11px 18px;border-radius:11px;cursor:pointer}
+.cta.secondary{background:var(--acc2)}.cta:hover{filter:brightness(1.1)}
+.kill{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;margin-top:10px;color:#cfe3ff}
+.live-note{margin-top:12px;font-size:13px;color:#cfe3ff;background:#0e1424;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.live-note ol{margin:8px 0 0 18px;line-height:1.7}
+canvas{width:100%;border:1px solid var(--line);border-radius:12px;background:#0a0f1e;margin-top:8px}
+.legend{display:flex;gap:14px;font-size:12px;opacity:.85;margin:8px 0;flex-wrap:wrap}
+.lg::before{content:'';display:inline-block;width:18px;height:3px;margin-right:6px;vertical-align:middle;background:currentColor}
+.lg.price{color:#e8f0ff}.lg.sma{color:var(--gold)}.lg.bb{color:var(--acc2)}.lg.buy{color:var(--acc)}.lg.sell{color:var(--warn)}.lg.rsi{color:#c58bff}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:10px 0}
+.kpi{background:#0e1424;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.kpi span{font-size:11px;opacity:.6;display:block}.kpi b{font-size:17px}
+.log{max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.log .row{background:#0e1424;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12.5px;font-family:ui-monospace,Consolas,monospace}
+.log .buy{border-color:var(--acc);color:#b7f5cd}.log .sell{border-color:var(--acc2);color:#c4ecff}.log .warn{border-color:var(--warn);color:#ffc9c9}
+.foot{max-width:1180px;margin:0 auto;padding:0 18px 40px;font-size:12px;opacity:.6;line-height:1.7}
